@@ -1,0 +1,91 @@
+#div1 {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1000;
+}
+
+
+.logo {
+    padding-left: 40px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 0.1px solid #dadada;
+}
+
+#div2 {
+    padding-top: 50px;
+    padding-bottom: 45px;
+    display: flex;
+    justify-content: center;
+}
+
+.div3text {
+    display: flex;
+    justify-content: center;
+}
+
+.signupbtn {
+    height:40px;
+    width: 150px;
+    background-color: dodgerblue;
+    border-radius: 5px;
+    color: white;
+    border: none;
+}
+
+.signupbtn:hover {
+    background-color: black;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.toptext:hover {
+    color: dodgerblue;
+}
+
+a {
+    text-decoration: none;
+    color:dodgerblue ;
+}
+
+a:hover {
+    color: black;
+}
+
+#div3 {
+    padding-bottom: 120px;
+}
+
+#div4 {
+    display: flex;
+    justify-content: center;
+}
+
+#div5 {
+    display: flex;
+    justify-content: center;
+}
+
+#div6 {
+    display: flex;
+    justify-content: center;
+}
+
+#div7 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 120px;
+}
+
+.div8text {
+    display: flex;
+    justify-content: center;
+}

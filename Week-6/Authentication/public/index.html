@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Authentication</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+  </head>
+  <body
+    style="
+      text-align: center;
+      background-image: url('https://imgs.search.brave.com/nIB25bxd8CIdDsnmli9aPhh5eOaidaICAHJU41l5t4M/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMxLm1ha2V1c2Vv/ZmltYWdlcy5jb20v/d29yZHByZXNzL3dw/LWNvbnRlbnQvdXBs/b2Fkcy8yMDIxLzA2/LzQuLUFtaW4ucG5n');
+      background-size: cover;
+    "
+  >
+    <h1>Get Your information</h1>
+    <div id="signup" style="margin-top: 100px">
+      Signup
+      <input id="signup-username" type="text" placeholder="Username..." />
+      <input id="signup-password" type="text" placeholder="Password..." />
+      <button onclick="SignUp()">Signup</button>
+    </div>
+    <br />
+    <div id="signin">
+      Signin
+      <input id="signin-username" type="text" placeholder="Username..." />
+      <input id="signin-password" type="text" placeholder="Password..." />
+      <button onclick="SignIn()">Signin</button>
+    </div>
+    <br />
+    <br />
+    <div id="user-info"></div>
+    <br />
+    <div id="logout"></div>
+
+    <!-- Javascript -->
+    <script>
+      async function SignUp() {
+        let username = document.getElementById("signup-username").value;
+        let password = document.getElementById("signup-password").value;
+
+        if (!username || !password) {
+          alert("Please provide your credientials to register!");
+          document.getElementById("signup-username").value = "";
+          document.getElementById("signup-password").value = "";
+          return;
+        }
+        const response = await axios.post("http://localhost:3000/signup", {
+          username: username,
+          password: password,
+        });
+
+        if (response.data.error) {
+          alert(response.data.error);
+          document.getElementById("signup-username").value = "";
+          document.getElementById("signup-password").value = "";
+        } else {
+          alert(response.data.message);
+          document.getElementById("signup-username").value = "";
+          document.getElementById("signup-password").value = "";
+        }
+      }
+
+      async function SignIn() {
+        let username = document.getElementById("signin-username").value;
+        let password = document.getElementById("signin-password").value;
+
+        if (!username || !password) {
+          alert("Please provide your credientials to login!");
+          document.getElementById("signin-username").value = "";
+          document.getElementById("signin-password").value = "";
+          return;
+        }
+
+        const response = await axios.post("http://localhost:3000/signin", {
+          username: username,
+          password: password,
+        });
+
+        if (response.data.error) {
+          alert(response.data.error);
+          document.getElementById("signin-username").value = "";
+          document.getElementById("signin-password").value = "";
+        } else {
+          alert(response.data.message);
+          localStorage.setItem("token", response.data.token);
+          document.getElementById("signin-username").value = "";
+          document.getElementById("signin-password").value = "";
+
+          const userbtn = document.createElement("button");
+          userbtn.innerHTML = "Get your information!";
+          userbtn.setAttribute("onclick", "me()");
+
+          const logoutbtn = document.createElement("button");
+          logoutbtn.innerHTML = "Logout";
+          logoutbtn.setAttribute("onclick", "LogOut()");
+
+          document.getElementById("user-info").appendChild(userbtn);
+          document.getElementById("logout").appendChild(logoutbtn);
+
+          document.getElementById("signup").innerHTML = "";
+          document.getElementById("signin").innerHTML = "";
+        }
+      }
+
+      async function me() {
+        const token = localStorage.getItem("token");
+
+        const response = await axios.get("http://localhost:3000/me", {
+          headers: {
+            token: token,
+          },
+        });
+
+        if (response.data.error) {
+          alert("Not authorized");
+          return;
+        }
+
+        document.getElementById(
+          "user-info"
+        ).innerHTML = `Your username is: ${response.data.username} and your password is: ${response.data.password}`;
+      }
+
+      function LogOut() {
+        localStorage.setItem("token", "");
+        location.reload();
+      }
+    </script>
+  </body>
+</html>

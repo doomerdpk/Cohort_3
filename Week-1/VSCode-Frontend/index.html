@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Studio Code - Code Editing. Redefined</title>
+    <link rel="icon" type="image/x-icon" href="https://imgs.search.brave.com/9s_c3NcnODg1NmY0a3PRw-D2oyEYWRYR3vUfq_feOSQ/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy90/aHVtYi85LzlhL1Zp/c3VhbF9TdHVkaW9f/Q29kZV8xLjM1X2lj/b24uc3ZnLzIyMHB4/LVZpc3VhbF9TdHVk/aW9fQ29kZV8xLjM1/X2ljb24uc3ZnLnBu/Zw">
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+    <div class="container">
+    <div id="div1" style="padding-left: 80px; padding-right: 70px;">
+        <div style="display: flex; justify-content: baseline;">
+            <div>
+      <img style="padding-right: 8px; margin-top: 5px;" class="cursor" src="https://imgs.search.brave.com/9s_c3NcnODg1NmY0a3PRw-D2oyEYWRYR3vUfq_feOSQ/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy90/aHVtYi85LzlhL1Zp/c3VhbF9TdHVkaW9f/Q29kZV8xLjM1X2lj/b24uc3ZnLzIyMHB4/LVZpc3VhbF9TdHVk/aW9fQ29kZV8xLjM1/X2ljb24uc3ZnLnBu/Zw" width="22">
+    </div>
+    <div style="margin-top: 10px;">
+      <span style="padding-right: 20px; padding-left: 5px;" id="Vscode" class="black-text">Visual Studio Code </span>
+      <span style="padding-right: 20px;" class="gr_text cursor color_chng" >Docs</span>
+      <span style="padding-right: 20px;" class="gr_text cursor color_chng" >Updates</span>
+      <span style="padding-right: 20px;" class="gr_text cursor color_chng" >Blogs</span>
+      <span style="padding-right: 20px;" class="gr_text cursor color_chng" >API</span>
+      <span style="padding-right: 20px;" class="gr_text cursor color_chng" >Extensions</span>
+      <span style="padding-right: 20px;" class="gr_text cursor color_chng" >FAQ</span>
+      <span class="gr_text cursor color_chng" >Learn</span>
+    </div>
+    </div>
+
+    <div style="margin-top: 8px; padding-right:45px">
+       <button style="background-color: #0e0e0e; text-decoration: none; height: 25px;" id="toggle" type="button" class="white-background"><img src="https://code.visualstudio.com/assets/icons/theme-light.svg" alt=""></button> 
+
+      <input class="white-background" id="search" type="text" placeholder="Search...">
+      <button  class="download cursor color_chng2"  type="button" style="height:30px; width:100px; text-decoration: none;">Download</button>
+    </div>
+    </div>
+
+    <div id="div2">
+        <div class="div2">
+        <a target="_blank" id="div2link" href="https://code.visualstudio.com/updates">Version 1.92</a>
+        <span >is now available! Read about the new features and fixes from July.</span>
+    </div>
+    </div>
+
+    <div id="div3" style="padding-top: 30px;">
+        <div style="padding-right: 50px;">
+        <div id="div3-1" class="white-background">
+            <span >Free. Built on open source. Runs everywhere.</span>
+        </div>
+
+        <div id="div3-2">
+            <h1 class="heading black-text">Code</h1>
+            <h1 class="heading black-text">Editing.</h1>
+            <h1 class="heading black-text">Refined.</h1>
+            <br>
+            <button class="download color_chng2" type="button" style="height: 50px; width: 270px;">Download For Windows</button>
+            <br>
+            <br>
+            <span class="dev3link"><a target="_blank" href="https://vscode.dev/">Web</a></span>,
+            <span class="dev3link"><a target="_blank" href="https://code.visualstudio.com/insiders">Insiders Edition</a></span>
+            , or <span class="dev3link"><a target="_blank" href="https://code.visualstudio.com/Download">Other Platforms</a></span>
+            <br>
+            <br>
+            <span>
+                By using VS Code, you agree to its
+                <a target="_blank" class="dev3link" href="https://code.visualstudio.com/license">license</a>
+                and
+                <a target="_blank" class="dev3link" href="https://go.microsoft.com/fwlink/?LinkId=521839">Privacy statement.</a>
+            </span>
+        </div>
+    </div>
+
+        <div>
+            <img id="Change-img" src="https://code.visualstudio.com/assets/home/home-screenshot-mac-2x-v2.png" width="580">
+        </div>
+    
+    </div>
+</div>
+
+<script>
+    const myButton = document.getElementById('toggle');
+    const body = document.body;
+    const blackTextElements = document.getElementsByClassName('black-text');
+    const blackBackground = document.getElementsByClassName('white-background');
+    const image = document.getElementById('Change-img');
+    let isChanged = false;
+
+    function handleClick() 
+    {
+        if (isChanged) 
+        {
+            // Restore to normal state
+            myButton.querySelector('img').src = 'https://code.visualstudio.com/assets/icons/theme-light.svg';
+            body.style.backgroundColor = '#0e0e0e';
+            for (let i = 0; i < blackTextElements.length; i++) {
+                blackTextElements[i].style.color = 'white';
+            }
+            for(let i=0;i<blackBackground.length;i++)
+            {
+                blackBackground[i].style.backgroundColor = '#0e0e0e';
+            }
+
+            image.src = 'https://code.visualstudio.com/assets/home/home-screenshot-mac-2x-v2.png';
+        } 
+        else {
+            // Change to modified state
+            myButton.querySelector('img').src = 'https://code.visualstudio.com/assets/icons/theme-dark.svg';
+            body.style.backgroundColor = 'white';
+            for (let i = 0; i < blackTextElements.length; i++) {
+            blackTextElements[i].style.color = '#0e0e0e';
+            
+            }
+            for(let i=0;i<blackBackground.length;i++)
+            {
+                blackBackground[i].style.backgroundColor = 'white';
+            }
+
+            image.src = 'https://code.visualstudio.com/assets/home/home-screenshot-mac-2x-v2-light.png';
+        
+        }
+        isChanged = !isChanged; // Toggle the flag
+    }
+
+    myButton.addEventListener('click', handleClick);
+</script>
+</body>
+</html>

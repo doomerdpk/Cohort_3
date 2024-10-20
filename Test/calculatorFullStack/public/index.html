@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+
+    <script>
+        async function Add()
+        {
+            const a=document.getElementById("a").value;
+            const b=document.getElementById("b").value;
+
+            const res=await fetch(`http://localhost:3001/add?a=${a}&b=${b}`)
+            const jsonData = await res.json();
+
+            document.getElementById("ans").innerHTML=`<h1>Your ans is: ${jsonData.ans}</h1>`;
+
+        }
+
+        async function Subtract()
+        {
+            const a=document.getElementById("a").value;
+            const b=document.getElementById("b").value;
+
+            const res=await fetch(`http://localhost:3001/subtract?a=${a}&b=${b}`)
+            const jsonData = await res.json();
+
+            document.getElementById("ans").innerHTML=`<h1>Your ans is: ${jsonData.ans}</h1>`;
+        }
+
+        async function Multiply()
+        {
+            const a=document.getElementById("a").value;
+            const b=document.getElementById("b").value;
+
+            const res=await fetch(`http://localhost:3001/multiply?a=${a}&b=${b}`)
+            const jsonData = await res.json();
+
+            document.getElementById("ans").innerHTML=`<h1>Your ans is: ${jsonData.ans}</h1>`;
+        }
+
+        async function Divide()
+        {
+            const a=document.getElementById("a").value;
+            const b=document.getElementById("b").value;
+
+            const res=await fetch(`http://localhost:3001/divide?a=${a}&b=${b}`)
+            const jsonData = await res.json();
+
+            document.getElementById("ans").innerHTML=`<h1>Your ans is: ${jsonData.ans}</h1>`;
+        }
+    </script>
+</head>
+<body style="background-image: url('https://imgs.search.brave.com/g-vEIDHN-LTq3sBmay7UabLkEsoKQIYfSuUNRiFbiPs/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTQy/NTE2NDAzOS9waG90/by9nbGFzcy1tb3Jw/aGlzbS1jYWxjdWxh/dG9yLWljb24td2l0/aC1jb2xvcmZ1bC1n/cmFkaWVudC1saWdo/dC1vbi1kYXJrLmpw/Zz9iPTEmcz0xNzA2/NjdhJnc9MCZrPTIw/JmM9YjBOeDQwcFBL/bnVWUG1EUDlkWFZC/eGZ4anBFblZpUDc2/cTRiTFFKOVM2QT0'); background-size: cover;">
+    <center>
+        <div>
+    <div>
+        <input id="a" type="text" placeholder="Enter a Number...">
+        <input id="b" type="text" placeholder="Enter a Number...">
+    </div>
+    <br>
+    <br>
+    <div>
+        <button style="background-color: dodgerblue; border: none; border-radius: 2px;" onclick="Add()">Add</button>
+        <button style="background-color: dodgerblue; border: none; border-radius: 2px;" onclick="Subtract()">Subtract</button>
+        <button style="background-color: dodgerblue; border: none; border-radius: 2px;" onclick="Multiply()">Multiply</button>
+        <button style="background-color: dodgerblue; border: none; border-radius: 2px;" onclick="Divide()">Divide</button>
+    </div>
+    <div style="color:red" id="ans">
+        
+    </div>
+</div>
+   </center>
+</body>
+</html>

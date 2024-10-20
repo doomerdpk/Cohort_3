@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://notion-emojis.s3-us-west-2.amazonaws.com/prod/svg-twitter/1f4c6.svg">
+    <link rel="stylesheet" href="index.css">
+    <title>To-Do List</title>
+</head>
+<body>
+    <div id="divForSize">
+
+    <!-- Div of Heading -->
+    <div id="div1">
+        <h1>Work Catalog for Today!</h1>
+    </div>
+
+    <!-- Div for listing To-do Items (to edit or delete the to-do's) -->
+    <div id="div2">
+
+    </div>
+
+    <!-- Div for adding a To-do Item -->
+     <div id="div3">
+        <input id="addtodo" type="text" placeholder="+ Add a Task...." onkeydown="checkEnterKey(event)"></input>
+        <button class="addbtn" type="button" onclick="addTodo()">Add to the List</button>
+     </div>
+     
+    </div>     
+
+    <!-- Linking the javascript file -->
+    <script src="index.js"></script>
+</body>
+</html>

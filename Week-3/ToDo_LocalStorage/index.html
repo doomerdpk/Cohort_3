@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>TO DO</title>
+  <link rel="icon" type="image/png" href="https://imgs.search.brave.com/6ls0RzpyrgFDsxW-1l9XS8-N-Hbkzt457CPy9y7vjec/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly93d3cu/c2tldGNoYXBwc291/cmNlcy5jb20vcmVz/b3VyY2VzL3NvdXJj/ZS1pbWFnZS9za2V0/Y2gtMy10b2RvLWxp/c3QtYXBwLWljb24t/dGVtcGxhdGUucG5n">
+</head>
+
+<body style="background-image:url('https://imgs.search.brave.com/yACKYwQd4qehiYavzgkgysq1pBKuudvB5bm6klN9pTo/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJzLmNvbS9p/bWFnZXMvZmVhdHVy/ZWQvc29saWQtY29s/b3ItMnFhemh4anZy/NnFmdmgwMi5qcGc') ; background-size: cover;">
+    <center>
+        <h1>Goals to achieve today!</h1>
+        <div id="container" style="margin-bottom: 30px;"></div>
+        <input type='text' placeholder="Add a todo!">
+        <button onclick="addTodo()"> Add to list </button>
+    </center>
+</body>
+
+<script>
+
+//All the state variables and things depenedent on the state variables should be retrieved everytime 
+//from the browser storage(Using localStorage.getItem function) and after updating it should be stored in the 
+//browser stoarge(Using localStoarge.setItem function).
+
+
+//State variable so need to be retrieved from Browsers local storage everytime  
+let ctr = localStorage.getItem('ctr') ? parseInt(localStorage.getItem('ctr')) : 0;
+//Dependent on state variable so need to be retrieved everytime
+let todos = getTodos(); 
+
+
+//Function to store the updated todo list in browser storage
+ function saveTodos(todos) {
+    localStorage.setItem('todos', JSON.stringify(todos));
+}
+
+//Function to retrieve the current todo list in browser storage
+function getTodos() {
+    const todos = localStorage.getItem('todos');
+    return todos ? JSON.parse(todos) : [];
+}
+
+  
+  //Component Variable that takes the value of state
+  function component(todo)
+  {
+    //Create three elements: div,h4,delete button
+    const divEl = document.createElement("div");
+    const h4El = document.createElement("h4");
+    const buttonEl = document.createElement("button");
+
+    //Update the State Values in div h4 and button
+    h4El.textContent = todo.title;
+    divEl.setAttribute('id',todo.id);
+    buttonEl.textContent="Delete";
+    buttonEl.setAttribute('onclick', `deleteTodo(${todo.id})`);
+
+    //Append the child
+    divEl.appendChild(h4El);
+    divEl.appendChild(buttonEl);
+
+    return divEl;
+
+  }
+
+  function render()
+  {
+    //First retrieve all the todos from browser storage then render the todos
+    const todos = getTodos();
+    document.querySelector("#container").innerHTML="";
+    for(let i=0;i<todos.length;i++)
+      {
+        let element = component(todos[i]);
+        document.querySelector("#container").appendChild(element);
+      }
+  }
+  
+  //This will ensure that render function get called if browser is refreshed and since render function
+  //is retirving the list of todos from browser's storage so todos list will persist
+  window.onload = render;
+
+  function deleteTodo(index)
+  {
+    //Can't do index based deletion as after every deletion index will 
+    //change
+    //todos.splice(index,1);
+
+    // Find the index of the todo item whose id matches with the index
+    //First retrieve all the todos from browser storage then delete a todo
+    const todos = getTodos(); 
+    const todoIndex = todos.findIndex(todo => todo.id === index);
+
+    // If the todo is found, remove it from the array
+    if (todoIndex !== -1) {
+      todos.splice(todoIndex, 1);
+    }
+    //After adding a new todo store that in browser storage
+    saveTodos(todos);
+    render();
+  }
+
+function addTodo()
+{
+  //State Variable
+  //Changes for every todo
+  //First retrieve all the todos from browser storage then push a new todo
+  const todos = getTodos();
+  let todo = {
+    id: ctr,
+    title: document.querySelector("input").value
+  };
+
+  todos.push(todo);
+  //After adding a new todo store that in browser storage
+  saveTodos(todos);
+  render();
+
+  ctr=ctr+1;
+  //After updating stored the updated value in the browser storage
+  localStorage.setItem('ctr', ctr);
+  document.querySelector("input").value="";
+}
+
+
+
+ 
+</script>
+
+</html>

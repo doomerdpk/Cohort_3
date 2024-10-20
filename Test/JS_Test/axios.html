@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- importing axios code in your webpage since axios is an external library and needs to be imported-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.6/axios.min.js"></script>
+</head>
+
+<body>
+  <center><div id="posts"></div></center>
+  <script>
+    //axios is an API used to fetch data from an URL
+    //axios is asynchronous operation that returns a promise
+    //res: reponse contains many other things than actual data
+    //res.data: Will be the actual data
+    async function fetchPosts() {
+      const res = await axios.get("https://jsonplaceholder.typicode.com/posts/1");
+      console.log(res.statusText);
+      document.getElementById("posts").innerHTML = res.data.title;
+    }
+
+    fetchPosts();
+  </script>
+</body>
+
+</html>

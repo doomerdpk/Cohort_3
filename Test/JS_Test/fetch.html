@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  <center><div id="posts"></div></center>
+  <script>
+    //fetch is an API used to fetch data from an URL
+    //It's a bulit in browser library so no need to import from anywhere
+    //fetch is asynchronous operation that returns a promise
+    //res.json is asynchronous operation that returns a promise
+    //response will always be string
+    async function fetchPosts() {
+      const res = await fetch("https://jsonplaceholder.typicode.com/posts/1");
+      const json = await res.json();
+      document.getElementById("posts").innerHTML = json.body;
+    }
+
+    fetchPosts();
+  </script>
+</body>
+
+</html>
