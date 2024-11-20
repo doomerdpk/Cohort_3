@@ -1,0 +1,60 @@
+//Use Case:
+//1. Demonstrate Prop Drilling
+//2. How to remove it using context API
+//3. Why state management libraries like recoil are better then context API in terms of performance
+
+//Prop-Drilling can be removed using context API
+//Three step process is involved in the context API:
+//1. Creating the context (Making slot for storing the data you want to share to the deeper childrens)
+//2. Creating the provider (Storing the data you want to share to the deeper childrens)
+//3. Consuming the data
+
+import { useState, createContext, useContext } from "react";
+
+const BulbContext = createContext(); //Created the context
+
+function BulbContextProvider({ children }) {
+  const [bulbOn, setbulbOn] = useState(true);
+  //Created the Provide outside of the component tree
+  return (
+    <BulbContext.Provider value={{ bulbOn: bulbOn, setbulbOn: setbulbOn }}>
+      {children}
+    </BulbContext.Provider>
+  );
+}
+
+function App() {
+  return (
+    //Created the Provider
+    <BulbContextProvider>
+      <LightBulb />
+    </BulbContextProvider>
+  );
+}
+
+function LightBulb() {
+  return (
+    <>
+      <BulbState />
+      <ToggleBulbState />
+    </>
+  );
+}
+
+function BulbState() {
+  //Consumed the Context
+  const { bulbOn } = useContext(BulbContext);
+  return <div>{bulbOn ? "Bulb-On" : "Bulb-Off"}</div>;
+}
+
+function ToggleBulbState() {
+  //Consumed the Context
+  const { bulbOn, setbulbOn } = useContext(BulbContext);
+  return (
+    <div>
+      <button onClick={() => setbulbOn(!bulbOn)}>ToggleState</button>
+    </div>
+  );
+}
+
+export default App;

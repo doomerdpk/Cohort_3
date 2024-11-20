@@ -1,0 +1,34 @@
+//Use Case:
+//1. Demonstrate Prop Drilling
+//2. How to remove it using context API
+//3. Why state management libraries like recoil are better then context API in terms of performance
+
+import { useState } from "react";
+
+function App() {
+  const [bulbOn, setbulbOn] = useState(true);
+  return <LightBulb bulbOn={bulbOn} setbulbOn={setbulbOn} />;
+}
+
+function LightBulb({ bulbOn, setbulbOn }) {
+  return (
+    <>
+      <BulbState bulbOn={bulbOn} />
+      <ToggleBulbState bulbOn={bulbOn} setbulbOn={setbulbOn} />
+    </>
+  );
+}
+
+function BulbState({ bulbOn }) {
+  return <div>{bulbOn ? "Bulb-On" : "Bulb-Off"}</div>;
+}
+
+function ToggleBulbState({ bulbOn, setbulbOn }) {
+  return (
+    <div>
+      <button onClick={() => setbulbOn(!bulbOn)}>ToggleState</button>
+    </div>
+  );
+}
+
+export default App;
