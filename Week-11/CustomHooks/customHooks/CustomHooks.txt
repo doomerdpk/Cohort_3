@@ -1,0 +1,92 @@
+1.useCounter
+
+import { useCounter } from "./Hooks/useCounter";
+
+function App() {
+  const { count, Increase } = useCounter();
+  return (
+    <>
+      {count}
+      <br />
+      <button onClick={Increase}>Increase Count</button>
+    </>
+  );
+}
+
+export default App;
+
+
+2. useFetch
+
+import { useFetch } from "./Hooks/useFetch";
+import { useState } from "react";
+
+function App() {
+  const [currentPost, setCurrentPost] = useState(1);
+  const { post, isLoading } = useFetch(
+    "https://jsonplaceholder.typicode.com/posts/" + currentPost
+  );
+
+  if (isLoading) {
+    return <div>Loading....</div>;
+  }
+  return (
+    <>
+      <button onClick={() => setCurrentPost(1)}>1</button>
+      <button onClick={() => setCurrentPost(2)}>2</button>
+      <button onClick={() => setCurrentPost(3)}>3</button>
+      <br />
+      {JSON.stringify(post)}
+    </>
+  );
+}
+
+export default App;
+
+3. usePrev
+
+import { useState } from "react";
+import { usePrev } from "./Hooks/usePrev";
+function App() {
+  const [count, setCount] = useState(0);
+  const { prevValue } = usePrev(count);
+  return (
+    <>
+      <div>Current Value of the Count: {count}</div>
+      <div>Previous Value of the Count: {prevValue}</div>
+      <button onClick={() => setCount(count + 1)}>IncreaseCount</button>
+    </>
+  );
+}
+
+export default App;
+
+
+4. useIsOnline:
+
+import useIsOnline from "./Hooks/useIsOnline";
+
+function App() {
+  const isOnline = useIsOnline(); // This will return "true" or "false"
+  // based on if the browser is offline/online
+  return <>{isOnline ? <div>Online</div> : <div>Offline</div>}</>;
+}
+
+export default App;
+
+5. Replication of Debounce Functionality usng Node.js
+let clock;
+
+function SendRequest() {
+  clearTimeout(clock);
+  clock = setTimeout(function () {
+    console.log("request sent successfully");
+  }, 30);
+}
+
+SendRequest();
+SendRequest();
+SendRequest();
+SendRequest();
+SendRequest();
+SendRequest();
