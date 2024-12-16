@@ -1,0 +1,139 @@
+// Use case: Try to replicate Linkedin Topbar(Without Styles) using Recoil
+
+import { RecoilRoot, useRecoilValue } from "recoil";
+import { networkAtom, jobsAtom, messageAtom, notificationsAtom } from "./atoms";
+
+function App() {
+  return (
+    <>
+      <RecoilRoot>
+        <TopBar />
+      </RecoilRoot>
+    </>
+  );
+}
+
+function TopBar() {
+  const network = useRecoilValue(networkAtom);
+  const Jobs = useRecoilValue(jobsAtom);
+  const message = useRecoilValue(messageAtom);
+  const notifications = useRecoilValue(notificationsAtom);
+
+  return (
+    <div>
+      <button>Home</button>
+      <button>My Network({network})</button>
+      <button>Jobs({Jobs})</button>
+      <button>Messaging({message})</button>
+      <button>Notifications({notifications})</button>
+      <button>Me</button>
+    </div>
+  );
+}
+
+export default App;
+
+
+
+// Use case: Print Total Sum of 4 atoms in Me button
+
+import { RecoilRoot, useRecoilValue } from "recoil";
+import {
+  networkAtom,
+  jobsAtom,
+  messageAtom,
+  notificationsAtom,
+  sum,
+} from "./atoms";
+import { useMemo } from "react";
+
+function App() {
+  return (
+    <>
+      <RecoilRoot>
+        <TopBar />
+      </RecoilRoot>
+    </>
+  );
+}
+
+function TopBar() {
+  const network = useRecoilValue(networkAtom);
+  const Jobs = useRecoilValue(jobsAtom);
+  const message = useRecoilValue(messageAtom);
+  const notifications = useRecoilValue(notificationsAtom);
+
+  //Dump Approach as Topbar will render everytime if any of the atoms changes
+  // const totalNotifications = network + Jobs + message + notifications;
+
+  //Better Approach: useMemo
+  // const totalNotifications = useMemo(() => {
+  //   return network + Jobs + message + notifications;
+  // }, [network, Jobs, message, notifications]);
+
+  //Optimal Approach: using selectors
+  const totalNotifications = useRecoilValue(sum);
+
+  return (
+    <div>
+      <button>Home</button>
+      <button>My Network({network})</button>
+      <button>Jobs({Jobs})</button>
+      <button>Messaging({message})</button>
+      <button>Notifications({notifications})</button>
+      <button>Me({totalNotifications})</button>
+    </div>
+  );
+}
+
+export default App;
+
+
+
+// Use case: Implement Asynchronous DataQueries
+//Method 1(Ugly Way): Using UseEffect
+//Method 2(Optimal Way): Using Selectors
+
+import { RecoilRoot, useRecoilValue, useRecoilState } from "recoil";
+import { linkedinAtom } from "./atom-async";
+import { useEffect } from "react";
+import axios from "axios";
+function App() {
+  return (
+    <>
+      <RecoilRoot>
+        <TopBar />
+      </RecoilRoot>
+    </>
+  );
+}
+
+function TopBar() {
+  const [topbar, setTopBar] = useRecoilState(linkedinAtom);
+
+  // async function backend() {
+  //   await new Promise((resolve) => setTimeout(resolve, 5000));
+  //   const response = await axios.get(
+  //     "https://mocki.io/v1/d5013c84-8736-4e48-8a4f-8fb936c24bc9"
+  //   );
+  //   setTopBar(response.data.data);
+  // }
+
+  // useEffect(() => {
+  //   backend();
+  // }, []);
+
+  return (
+    <div>
+      <button>Home</button>
+      <button>My Network({topbar.network})</button>
+      <button>Jobs({topbar.jobs})</button>
+      <button>Messaging({topbar.messages})</button>
+      <button>Notifications({topbar.notifications})</button>
+      <button>Me()</button>
+    </div>
+  );
+}
+
+export default App;
+
